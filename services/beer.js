@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { get, pick } from 'lodash'
 import qs from 'query-string'
+import timeAgo from 'time-ago'
 
 import config from 'config'
 
@@ -26,6 +27,7 @@ const hydrateBeer = beer => {
   ])
   return {
     ...pickedData,
+    timeAgo: `created at ${timeAgo.ago(pickedData.createDate)}`,
     logo: get(pickedData, 'labels.medium', DEFAULT_BEER_LOGO),
   }
 }
