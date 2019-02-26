@@ -1,21 +1,26 @@
-import todoReducer, { actions as todoActions, selectors as todoSelectors } from 'reducers/todo'
+import beersReducer, {
+  actions as beersActions,
+  selectors as beersSelectors,
+} from 'reducers/beers'
 import { combineReducers, compose, createStore } from 'redux'
 
 export const actions = {
-  todo: todoActions,
+  beers: beersActions,
 }
 
 export const selectors = {
-  todo: todoSelectors,
+  beers: beersSelectors,
 }
 
 const rootReducer = combineReducers({
-  todo: todoReducer,
+  beers: beersReducer,
 })
 
 /* eslint-disable no-underscore-dangle */
 const composeEnhancers =
-  (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
+  (typeof window !== 'undefined' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+  compose
 /* eslint-enable */
 
 const store = createStore(rootReducer, composeEnhancers())

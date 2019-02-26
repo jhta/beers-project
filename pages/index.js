@@ -2,6 +2,8 @@ import React from 'react'
 import { Box } from 'rebass'
 import BeerList from 'components/pages/default/BeerList'
 
+import { createUseConnect } from 'react-use-redux'
+
 import { getRandomBeersBypage } from 'services/beer'
 
 import {
@@ -10,7 +12,10 @@ import {
 } from 'reducers/todo'
 import { asPage } from 'lib'
 
+const useConnect = createUseConnect(state => state)
 const Index = props => {
+  const data = useConnect()
+  console.log('use connect', data)
   return (
     <Box width={[1]} color="black" p={[4]}>
       <p>Hello World!</p>
