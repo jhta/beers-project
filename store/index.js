@@ -1,8 +1,13 @@
 import beersReducer, {
   actions as beersActions,
   selectors as beersSelectors,
+  sagas as rootSagas,
 } from 'reducers/beers'
-import { combineReducers, compose, createStore } from 'redux'
+import { combineReducers, compose, createStore, applyMiddleware } from 'redux'
+import createSagaMiddleware from 'redux-saga'
+// import { rootSaga } from 'reducers/beers/sagas'
+
+const sagaMiddleware = createSagaMiddleware()
 
 export const actions = {
   beers: beersActions,
@@ -23,5 +28,9 @@ const composeEnhancers =
   compose
 /* eslint-enable */
 
-const store = createStore(rootReducer, composeEnhancers())
+const storeEnhancers = [applyMiddleware(sagaMiddleware)]
+
+const store = createStore(rootReducer, composeEnhancers(...storeEnhancers))
+
+sagaMiddleware.run(rootSagas)
 export default store

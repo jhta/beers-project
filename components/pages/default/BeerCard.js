@@ -20,7 +20,7 @@ const BeerCard = React.memo(
   )
 )
 
-BeerCard.PropTypes = {
+BeerCard.propTypes = {
   nameDisplay: PropTypes.string.isRequired,
   createDate: PropTypes.string.isRequired,
   description: PropTypes.string,

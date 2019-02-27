@@ -1,9 +1,9 @@
-import React from 'react'
-import { Box } from 'rebass'
-import BeerList from 'components/pages/default/BeerList'
-
+import React, { useEffect } from 'react'
 import { createUseConnect } from 'react-use-redux'
+import { Box } from 'rebass'
 
+import BeerList from 'components/pages/default/BeerList'
+import { actions as beerActions } from 'reducers/beers'
 import { getRandomBeersBypage } from 'services/beer'
 
 import {
@@ -12,10 +12,18 @@ import {
 } from 'reducers/todo'
 import { asPage } from 'lib'
 
-const useConnect = createUseConnect(state => state)
+const mapDispatchToProps = dispatch => ({
+  requestData: () => dispatch(beerActions.requestBeers()),
+})
+
+const useConnect = createUseConnect(state => state, mapDispatchToProps)
 const Index = props => {
-  const data = useConnect()
-  console.log('use connect', data)
+  const { requestData } = useConnect()
+
+  useEffect(() => {
+    requestData()
+  }, [])
+  console.log('use connect', requestData)
   return (
     <Box width={[1]} color="black" p={[4]}>
       <p>Hello World!</p>

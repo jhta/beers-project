@@ -13,6 +13,9 @@ const defaultQuery = {
 const instance = axios.create({
   baseURL: config.apiURL,
   timeout: 1000,
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+  },
 })
 
 export const getRandomBeersBypage = async (page = 1, randomCount = 10) => {

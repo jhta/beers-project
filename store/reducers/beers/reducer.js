@@ -9,16 +9,16 @@ const initialState = {
 }
 
 const reducer = {
-  [actions.requestBeers]: (state, action) => ({
+  [actions.requestBeers.trigger]: (state, action) => ({
     ...state,
     isFetchingBeers: true,
   }),
-  [actions.requestBeers.succeeded]: (state, action) => ({
+  [actions.requestBeers.success]: (state, action) => ({
     ...state,
     ...action.payload,
     isFetchingBeers: false,
   }),
-  [actions.requestBeers]: (state, action) => ({
+  [actions.requestBeers.failure]: (state, action) => ({
     ...state,
     error: get(action.payload.error),
     isFetchingBeers: false,

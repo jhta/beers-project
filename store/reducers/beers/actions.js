@@ -1,11 +1,12 @@
 import { createAction } from 'redux-actions'
+import { createRoutine } from 'redux-saga-routines'
 
 const namespace = 'BEERS'
 const types = {
-  REQUEST: `${namespace}/REQUEST`,
+  LIST: `${namespace}/LIST`,
   REQUEST_MORE: `${namespace}/REQUEST_MORE`,
 }
 
 export const actions = {
-  requestBeers: createAction(types.REQUEST),
+  requestBeers: createRoutine(types.LIST),
 }
