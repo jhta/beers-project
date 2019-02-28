@@ -4,10 +4,12 @@ import styled from 'styled-components'
 
 const RelativeBox = styled(Flex)`
   position: relative;
+  left: -200px;
+  top: -90px;
 `
 
 const BeerLoader = props => (
-  <RelativeBox justifyContent="space-between">
+  <RelativeBox ml={-4}>
     <div>
       <div id="glass">
         <div id="beer" />

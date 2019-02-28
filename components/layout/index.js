@@ -2,6 +2,8 @@ import React, { Fragment } from 'react'
 import { Box } from 'rebass'
 import Head from 'next/head'
 
+import Header from 'ui/Header'
+
 import { GlobalStyles } from 'theme/global'
 
 const Layout = props => (
@@ -17,7 +19,11 @@ const Layout = props => (
     </Head>
 
     <GlobalStyles />
-    <Box>{props.children}</Box>
+
+    <Header />
+    <Box width={[1]} css={{ maxWidth: '1080px', margin: '0 auto' }}>
+      {props.children}
+    </Box>
   </Fragment>
 )
 

@@ -14,12 +14,15 @@ const theme = {
     256,
   ],
   colors: {
-    blue: '#07c',
-    red: '#e10',
-    main: '#F79400',
+    main: '#e8b504',
     secondary: '#D87800',
+    black: '#333',
+    dark: '#000',
   },
   borders,
+  fonts: {
+    futura: 'futura',
+  },
 }
 
 export default theme

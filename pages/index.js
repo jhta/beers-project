@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { createUseConnect } from 'react-use-redux'
-import { Box } from 'rebass'
+import { Box, Flex } from 'rebass'
 import { isEmpty } from 'lodash'
 
 import Button from 'ui/Button'
@@ -54,9 +54,8 @@ const Index = props => {
 
   return (
     <Box width={[1]} color="black" p={[4]}>
-      <p>Hello World!</p>
       <BeerList beers={newBeers} />
-      <Box p={[4]}>
+      <Flex p={[4]} justifyContent="center">
         <LoaderIfNeeded isLoading={isLoading} />
         <ButtonGetMoreIfNeeded
           isLoading={isLoading}
@@ -65,14 +64,13 @@ const Index = props => {
           }}
           text={'GET MORE BEERS!'}
         />
-        )}
-      </Box>
+      </Flex>
     </Box>
   )
 }
 
 const LoaderIfNeeded = ({ isLoading, ...rest }) =>
-  true ? <BeerLoader {...rest} /> : null
+  isLoading ? <BeerLoader {...rest} /> : null
 
 const ButtonGetMoreIfNeeded = ({ isLoading, text, ...rest }) =>
   !isLoading ? <Button {...rest}>{text}</Button> : null

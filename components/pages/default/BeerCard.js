@@ -12,9 +12,11 @@ const BeerCard = React.memo(
         <Card width={220} borderiRight={1} bg="#ccc">
           <StyledImage width={220} height={200} src={logo} />
         </Card>
-        <Box p={[3]} pl={[4]}>
-          <Heading pb={[2]}>{nameDisplay}</Heading>
-          <Text color="white" pb={[2]}>
+        <Box p={[3]} pl={[4]} width={1}>
+          <Box bg="dark" p={[3]} width={1}>
+            <Heading bg="dark">{nameDisplay}</Heading>
+          </Box>
+          <Text color="white" pb={[2]} pt={[2]}>
             {timeAgo}
           </Text>
           <Text color="white">{description}</Text>

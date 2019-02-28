@@ -6,7 +6,7 @@ import theme from 'theme'
 export const GlobalStyles = createGlobalStyle`
   body, p, h1, h2 {
     font-family: 'Nanum Gothic', sans-serif;
-    background: black;
+    background: #333;
     color: white;
   }
 
