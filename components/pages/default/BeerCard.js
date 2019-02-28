@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import Button from 'ui/Button'
 
 const BeerCard = React.memo(
-  ({ nameDisplay, createDate, description, logo, timeAgo }) => (
+  ({ nameDisplay, description, logo, timeAgo, id }) => (
     <Card border={1} borderColor={'white'}>
       <Flex>
         <Card width={220} borderiRight={1} bg="#ccc">
@@ -21,7 +21,9 @@ const BeerCard = React.memo(
           </Text>
           <Text color="white">{description}</Text>
           <Box pt={[2]}>
-            <Button>{'MORE DETAILS'}</Button>
+            <a href={`/detail?id=${id}`} as={`/detail/${id}`}>
+              <Button>{'MORE DETAILS'}</Button>
+            </a>
           </Box>
         </Box>
       </Flex>

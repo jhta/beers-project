@@ -15,7 +15,6 @@ export const hydrateBeer = beer => {
 
   const { description = '' } = pickedData
 
-  console.log('this is the description', description)
   const newDescription =
     description.length > 220
       ? description.substring(0, 218) + '...'
@@ -30,3 +29,20 @@ export const hydrateBeer = beer => {
 }
 
 export const hydrateBeers = (beers = []) => beers.map(hydrateBeer)
+
+export const hydrateBeerStyle = (style = {}) => ({
+  category: get(style, 'category.name', ''),
+  ...pick(style, ['description', 'name', 'id']),
+})
+
+export const hydrateDetailBeer = (beer = {}) => {
+  console.log('inside the hydrate', beer)
+  const basicParams = hydrateBeer(beer)
+  const detailParams = pick(beer, ['isOrganic', 'style'])
+
+  return {
+    ...basicParams,
+    ...detailParams,
+    style: hydrateBeerStyle(detailParams.style),
+  }
+}

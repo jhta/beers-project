@@ -4,7 +4,7 @@ import qs from 'query-string'
 
 import config from 'config'
 
-import { hydrateBeers } from './hydrate'
+import { hydrateBeers, hydrateDetailBeer } from './hydrate'
 
 const defaultQuery = {
   key: config.apiKey,
@@ -12,7 +12,7 @@ const defaultQuery = {
 
 const instance = axios.create({
   baseURL: config.apiURL,
-  timeout: 1000,
+  timeout: 3000,
   headers: {
     'Access-Control-Allow-Origin': '*',
   },
@@ -40,11 +40,33 @@ export const getRandomBeersBypage = async (page = 1, randomCount = 10) => {
     console.log('error')
     return {
       data: null,
-      error: error,
+      error: error.messagge,
     }
   }
 
   return data
+}
+
+export const getBeerById = async (id = null) => {
+  if (!id) return { error: 'Empty ID' }
+
+  try {
+    const response = await instance.get(
+      `beer/${id}/?${qs.stringify(defaultQuery)}`
+    )
+    const responseData = get(response, 'data.data', {})
+
+    console.log('==============================')
+    console.log('==============================')
+    const res = { data: hydrateDetailBeer(responseData), error: null }
+    console.log(res)
+    console.log('==============================')
+    console.log('==============================')
+    return res
+  } catch (error) {
+    console.log(error.message)
+    return { data: null, error: error.message }
+  }
 }
 
 export default instance
