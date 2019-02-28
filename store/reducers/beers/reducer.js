@@ -16,12 +16,17 @@ const reducer = {
   [actions.requestBeers.success]: (state, action) => ({
     ...state,
     ...action.payload,
+    beers: state.beers.concat(action.payload.beers),
     isFetchingBeers: false,
   }),
   [actions.requestBeers.failure]: (state, action) => ({
     ...state,
     error: get(action.payload.error),
     isFetchingBeers: false,
+  }),
+  [actions.set]: (state, action) => ({
+    ...state,
+    ...action.payload,
   }),
 }
 

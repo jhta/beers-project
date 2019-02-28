@@ -1,48 +1,94 @@
 import React, { useEffect } from 'react'
 import { createUseConnect } from 'react-use-redux'
 import { Box } from 'rebass'
+import { isEmpty } from 'lodash'
 
+import Button from 'ui/Button'
 import BeerList from 'components/pages/default/BeerList'
-import { actions as beerActions } from 'reducers/beers'
 import { getRandomBeersBypage } from 'services/beer'
 
-import {
-  selectors as todoSelectors,
-  actions as todoActions,
-} from 'reducers/todo'
+import BeerLoader from 'ui/Loader'
+
 import { asPage } from 'lib'
+import {
+  actions as beersActions,
+  selectors as beersSelectors,
+} from 'reducers/beers'
 
 const mapDispatchToProps = dispatch => ({
-  requestData: () => dispatch(beerActions.requestBeers()),
+  fetchBeers: (page = 1) =>
+    dispatch(beersActions.requestBeers({ page: page + 1 })),
+  setInitialStoreFromServer: payload => dispatch(beersActions.set(payload)),
 })
 
-const useConnect = createUseConnect(state => state, mapDispatchToProps)
+const mapStateToProps = state => ({
+  beers: beersSelectors.getBeers(state),
+  page: state.beers.page,
+  isLoading: state.beers.isFetchingBeers,
+})
+
+const useConnect = createUseConnect(
+  mapStateToProps,
+  mapDispatchToProps
+  // mergeProps
+)
 const Index = props => {
-  const { requestData } = useConnect()
+  const {
+    beers,
+    setInitialStoreFromServer,
+    fetchBeers,
+    page,
+    isLoading,
+  } = useConnect()
+  const { numberOfPages } = props
 
   useEffect(() => {
-    requestData()
+    setInitialStoreFromServer({
+      beers: props.beers,
+      page: props.page,
+      numberOfPages,
+    })
   }, [])
-  console.log('use connect', requestData)
+
+  const newBeers = !isEmpty(beers) ? beers : props.beers
+
   return (
     <Box width={[1]} color="black" p={[4]}>
       <p>Hello World!</p>
-      <BeerList beers={props.beers} />
+      <BeerList beers={newBeers} />
+      <Box p={[4]}>
+        <LoaderIfNeeded isLoading={isLoading} />
+        <ButtonGetMoreIfNeeded
+          isLoading={isLoading}
+          onClick={() => {
+            fetchBeers(page)
+          }}
+          text={'GET MORE BEERS!'}
+        />
+        )}
+      </Box>
     </Box>
   )
 }
+
+const LoaderIfNeeded = ({ isLoading, ...rest }) =>
+  true ? <BeerLoader {...rest} /> : null
+
+const ButtonGetMoreIfNeeded = ({ isLoading, text, ...rest }) =>
+  !isLoading ? <Button {...rest}>{text}</Button> : null
 
 Index.defaultProps = {
   beers: [],
 }
 
-Index.getInitialProps = async () => {
+Index.getInitialProps = async ctx => {
   try {
-    const { data, error } = await getRandomBeersBypage()
-    return { ...data, error }
+    const { data } = await getRandomBeersBypage()
+    return { ...data }
   } catch (error) {
+    console.log('error', error)
     return {
-      error: error,
+      error: error.message,
     }
   }
 }

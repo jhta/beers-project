@@ -33,4 +33,9 @@ const storeEnhancers = [applyMiddleware(sagaMiddleware)]
 const store = createStore(rootReducer, composeEnhancers(...storeEnhancers))
 
 sagaMiddleware.run(rootSagas)
+
+// const store = createStore(rootReducer, composeEnhancers(...storeEnhancers))
+
+// sagaMiddleware.run(rootSagas)
+
 export default store

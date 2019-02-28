@@ -13,6 +13,7 @@ const Layout = props => (
         href="https://fonts.googleapis.com/css?family=Nanum+Gothic"
         rel="stylesheet"
       />
+      <style />
     </Head>
 
     <GlobalStyles />

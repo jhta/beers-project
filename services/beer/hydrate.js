@@ -12,8 +12,18 @@ export const hydrateBeer = beer => {
     'createDate',
     'labels',
   ])
+
+  const { description = '' } = pickedData
+
+  console.log('this is the description', description)
+  const newDescription =
+    description.length > 220
+      ? description.substring(0, 218) + '...'
+      : description
+
   return {
     ...pickedData,
+    description: newDescription,
     timeAgo: `created at ${timeAgo.ago(pickedData.createDate)}`,
     logo: get(pickedData, 'labels.medium', DEFAULT_BEER_LOGO),
   }
