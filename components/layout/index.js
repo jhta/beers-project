@@ -1,7 +1,5 @@
 import React, { Fragment } from 'react'
-import { Box } from 'rebass'
 import Head from 'next/head'
-
 import Header from 'ui/Header'
 import Container from 'ui/Container'
 

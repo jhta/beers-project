@@ -17,6 +17,7 @@
     "query-string": "^6.2.0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
+    "react-reveal": "^1.2.2",
     "react-use-redux": "^0.1.4",
     "react-use-theme": "^1.0.2",
     "rebass": "^3.0.1",

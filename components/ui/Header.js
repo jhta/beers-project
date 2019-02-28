@@ -11,9 +11,11 @@ const Header = props => (
     bg="dark"
   >
     <Box width={[1]} border={1} p={3} borderColor="white">
-      <Heading bg="dark" fontFamily="futura">
-        AWESOME BEERS
-      </Heading>
+      <a href="/" style={{ textDecoration: 'none' }}>
+        <Heading bg="dark" fontFamily="futura">
+          AWESOME BEERS
+        </Heading>
+      </a>
     </Box>
     <Box p={3} bg="main">
       <Heading bg="main" color="black" fontFamily="futura">

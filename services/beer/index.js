@@ -12,7 +12,7 @@ const defaultQuery = {
 
 const instance = axios.create({
   baseURL: config.apiURL,
-  timeout: 3000,
+  timeout: 5000,
   headers: {
     'Access-Control-Allow-Origin': '*',
   },
@@ -56,12 +56,7 @@ export const getBeerById = async (id = null) => {
     )
     const responseData = get(response, 'data.data', {})
 
-    console.log('==============================')
-    console.log('==============================')
     const res = { data: hydrateDetailBeer(responseData), error: null }
-    console.log(res)
-    console.log('==============================')
-    console.log('==============================')
     return res
   } catch (error) {
     console.log(error.message)
