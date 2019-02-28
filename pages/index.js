@@ -53,12 +53,13 @@ const Index = props => {
   const newBeers = !isEmpty(beers) ? beers : props.beers
 
   return (
-    <Box width={[1]} color="black" p={[4]}>
+    <Box width={[1]} color="black" p={[1]} pt={[5]}>
       <BeerList beers={newBeers} />
       <Flex p={[4]} justifyContent="center">
         <LoaderIfNeeded isLoading={isLoading} />
         <ButtonGetMoreIfNeeded
           isLoading={isLoading}
+          big
           onClick={() => {
             fetchBeers(page)
           }}

@@ -3,6 +3,7 @@ import { Box } from 'rebass'
 import Head from 'next/head'
 
 import Header from 'ui/Header'
+import Container from 'ui/Container'
 
 import { GlobalStyles } from 'theme/global'
 
@@ -17,13 +18,9 @@ const Layout = props => (
       />
       <style />
     </Head>
-
     <GlobalStyles />
-
     <Header />
-    <Box width={[1]} css={{ maxWidth: '1080px', margin: '0 auto' }}>
-      {props.children}
-    </Box>
+    <Container mt={200}>{props.children}</Container>
   </Fragment>
 )
 

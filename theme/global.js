@@ -10,6 +10,10 @@ export const GlobalStyles = createGlobalStyle`
     color: white;
   }
 
+  body {
+    margin: 0;
+  }
+
 /** -------------------------------------------------**/
 /** -------------------------------------------------**/
   /* all this below is just for the loader */

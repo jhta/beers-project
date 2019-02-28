@@ -1,11 +1,12 @@
 import { Button } from 'rebass'
 
-const CustomButton = ({ children, ...rest }) => (
+const CustomButton = ({ children, big, ...rest }) => (
   <Button
     bg="transparent"
     border={[1]}
     borderColor="white"
     borderRadius={0}
+    fontSize={big ? [4] : [2]}
     css={{
       cursor: 'pointer',
       '&:hover': {
