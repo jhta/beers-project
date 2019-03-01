@@ -1,5 +1,7 @@
 ## Beers web 
 
+DEMO: https://with-jest-kcucgbjpog.now.sh/
+
 ### How to run it:
 
 `yarn install`
