@@ -6,7 +6,10 @@ import {
   getRandomBeersBypage,
   addBeerToFavorites,
   getFavorites,
+  removeBeerFromFavorites,
 } from 'services/beer'
+
+//----------------------------------------------------------------
 
 export function* requestListWatcherSaga() {
   yield takeEvery(actions.requestBeers.TRIGGER, requestList)
@@ -23,6 +26,8 @@ export function* requestList(action) {
   }
 }
 
+//----------------------------------------------------------------
+
 export function* requestFavorites(action) {
   try {
     yield put(actions.requestFavorites.request())
@@ -37,8 +42,9 @@ export function* requestFavoritesWatcherSaga() {
   yield takeEvery(actions.requestFavorites.TRIGGER, requestFavorites)
 }
 
+//----------------------------------------------------------------
+
 export function* addToFavorites(action) {
-  console.log('action on saga', action)
   const beer = get(action, 'payload', {})
   try {
     yield put(actions.addFavorite.request())
@@ -53,10 +59,29 @@ export function* addToFavoritesWatcherSaga() {
   yield takeEvery(actions.addFavorite.TRIGGER, addToFavorites)
 }
 
+//----------------------------------------------------------------
+
+export function* removeFromFavorites(action) {
+  console.log('action on saga', action)
+  const beer = get(action, 'payload', {})
+  try {
+    yield put(actions.removeFavorite.request())
+    const { data } = yield call(removeBeerFromFavorites, beer)
+    yield put(actions.removeFavorite.success(data))
+  } catch (error) {
+    yield put(actions.removeFavorite.failure(error.message))
+  }
+}
+
+export function* removeFromFavoritesWatcherSaga() {
+  yield takeEvery(actions.removeFavorite.TRIGGER, removeFromFavorites)
+}
+
 // notice how we now only export the rootSaga
 // single entry point to start all Sagas at once
 export default function* rootSaga() {
   yield fork(requestListWatcherSaga)
   yield fork(requestFavoritesWatcherSaga)
   yield fork(addToFavoritesWatcherSaga)
+  yield fork(removeFromFavoritesWatcherSaga)
 }

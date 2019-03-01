@@ -15,14 +15,24 @@ const createFavoritesStorage = () => {
 
   const favoritesMap = baseMap ? new Map(JSON.parse(baseMap)) : new Map()
 
-  const set = (key, value) => {
-    favoritesMap.set(key, value)
+  const persists = () => {
     // parse the map to string for save the changes
     const favoritesMapAsString = JSON.stringify(
       Array.from(favoritesMap.entries())
     )
     storage.setItem('favorites', favoritesMapAsString)
+  }
+
+  const set = (key, value) => {
+    favoritesMap.set(key, value)
+    persists()
     return { key, value }
+  }
+
+  const remove = key => {
+    const ok = favoritesMap.delete(key)
+    persists()
+    return { ok }
   }
 
   const get = key => favoritesMap.get(key)
@@ -42,6 +52,7 @@ const createFavoritesStorage = () => {
     get,
     has,
     getAll,
+    remove,
   }
 }
 

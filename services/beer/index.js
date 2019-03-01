@@ -85,4 +85,15 @@ export const getFavorites = async () => {
   }
 }
 
+export const removeBeerFromFavorites = async (beer = {}) => {
+  try {
+    favoritesStorage.remove(beer.id)
+    const data = favoritesStorage.getAll()
+    return { data, error: null }
+  } catch (error) {
+    console.log(error)
+    return error
+  }
+}
+
 export default instance

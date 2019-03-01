@@ -62,6 +62,16 @@ const reducer = {
       favoriteIds: [...state.favoriteIds, payload.id],
     }
   },
+  // -----------------------------------------------
+  // addFavorite
+  // -----------------------------------------------
+  [actions.removeFavorite.success]: (state, { payload = {} }) => {
+    return {
+      ...state,
+      favorites: payload.favorites,
+      favoriteIds: payload.favoriteIds,
+    }
+  },
 }
 
 export default handleActions(reducer, initialState)

@@ -8,6 +8,7 @@ const types = {
   SET: `${namespace}/SET`,
   REQUEST_FAVORITES: `${namespace}/GET_FAVORITES`,
   ADD_FAVORITE: `${namespace}/ADD_FAVORITE`,
+  REMOVE_FAVORITE: `${namespace}/REMOVE_FAVORITE`,
 }
 
 export const actions = {
@@ -15,4 +16,5 @@ export const actions = {
   set: createAction(types.SET),
   requestFavorites: createRoutine(types.REQUEST_FAVORITES),
   addFavorite: createRoutine(types.ADD_FAVORITE),
+  removeFavorite: createRoutine(types.REMOVE_FAVORITE),
 }
