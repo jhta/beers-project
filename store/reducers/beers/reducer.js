@@ -6,9 +6,15 @@ const initialState = {
   beers: [],
   page: 1,
   numberOfPages: 10,
+  favorites: [],
+  favoriteIds: [],
+  isFetchingFavorites: false,
 }
 
 const reducer = {
+  // -----------------------------------------------
+  // request beers
+  // -----------------------------------------------
   [actions.requestBeers.trigger]: (state, action) => ({
     ...state,
     isFetchingBeers: true,
@@ -21,13 +27,41 @@ const reducer = {
   }),
   [actions.requestBeers.failure]: (state, action) => ({
     ...state,
-    error: get(action.payload.error),
+    error: get(action, 'payload.error'),
     isFetchingBeers: false,
   }),
   [actions.set]: (state, action) => ({
     ...state,
     ...action.payload,
   }),
+  // -----------------------------------------------
+  // requestfavorites
+  // -----------------------------------------------
+
+  [actions.requestFavorites.request]: (state, action) => ({
+    ...state,
+    isFetchingFavorites: true,
+  }),
+  [actions.requestFavorites.success]: (state, action) => ({
+    ...state,
+    ...action.payload,
+    isFetchingFavorites: false,
+  }),
+  [actions.requestFavorites.failure]: (state, action) => ({
+    ...state,
+    error: get(action, 'payload.error'),
+  }),
+  // -----------------------------------------------
+  // addFavorite
+  // -----------------------------------------------
+  [actions.addFavorite.success]: (state, { payload = {} }) => {
+    const favorites = [...state.favorites, payload]
+    return {
+      ...state,
+      favorites,
+      favoriteIds: [...state.favoriteIds, payload.id],
+    }
+  },
 }
 
 export default handleActions(reducer, initialState)

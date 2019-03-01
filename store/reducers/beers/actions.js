@@ -6,9 +6,13 @@ const types = {
   LIST: `${namespace}/LIST`,
   REQUEST_MORE: `${namespace}/REQUEST_MORE`,
   SET: `${namespace}/SET`,
+  REQUEST_FAVORITES: `${namespace}/GET_FAVORITES`,
+  ADD_FAVORITE: `${namespace}/ADD_FAVORITE`,
 }
 
 export const actions = {
   requestBeers: createRoutine(types.LIST),
   set: createAction(types.SET),
+  requestFavorites: createRoutine(types.REQUEST_FAVORITES),
+  addFavorite: createRoutine(types.ADD_FAVORITE),
 }

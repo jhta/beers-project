@@ -5,6 +5,7 @@ import qs from 'query-string'
 import config from 'config'
 
 import { hydrateBeers, hydrateDetailBeer } from './hydrate'
+import favoritesStorage from 'services/beer/favoritesStorage'
 
 const defaultQuery = {
   key: config.apiKey,
@@ -61,6 +62,26 @@ export const getBeerById = async (id = null) => {
   } catch (error) {
     console.log(error.message)
     return { data: null, error: error.message }
+  }
+}
+
+export const addBeerToFavorites = async (beer = {}) => {
+  try {
+    const response = favoritesStorage.set(beer.id, beer)
+    return { data: response, error: null }
+  } catch (error) {
+    console.log(error)
+    return error
+  }
+}
+
+export const getFavorites = async () => {
+  try {
+    const response = favoritesStorage.getAll()
+    return { data: response, error: null }
+  } catch (error) {
+    console.log(error)
+    return error
   }
 }
 

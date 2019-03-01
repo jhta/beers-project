@@ -36,7 +36,6 @@ export const hydrateBeerStyle = (style = {}) => ({
 })
 
 export const hydrateDetailBeer = (beer = {}) => {
-  console.log('inside the hydrate', beer)
   const basicParams = hydrateBeer(beer, true)
   const detailParams = pick(beer, ['isOrganic', 'style'])
 

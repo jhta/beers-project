@@ -18,9 +18,11 @@ const Header = props => (
       </a>
     </Box>
     <Box p={3} bg="main">
-      <Heading bg="main" color="black" fontFamily="futura">
-        FAVORITES
-      </Heading>
+      <a href="/favorites" style={{ textDecoration: 'none' }}>
+        <Heading bg="main" color="black" fontFamily="futura">
+          FAVORITES
+        </Heading>
+      </a>
     </Box>
   </Flex>
 )

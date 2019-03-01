@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react'
+import React, { useEffect } from 'react'
 import { PropTypes } from 'prop-types'
 import { Box, Heading, Text, Flex, Image } from 'rebass'
 import styled from 'styled-components'
@@ -9,10 +9,46 @@ import { getBeerById } from 'services/beer'
 import DetailHeader from 'components/pages/detail/Header'
 import OrganicIco from 'ui/OrganicIco'
 
+import { createUseConnect } from 'react-use-redux'
+
+import {
+  actions as beersActions,
+  selectors as beersSelectors,
+} from 'reducers/beers'
+
+/**
+ *
+ * Redux
+ */
+const mapDispatchToProps = dispatch => ({
+  addToFavorites: beer => dispatch(beersActions.addFavorite(beer)),
+  requestFavorites: () => dispatch(beersActions.requestFavorites()),
+})
+
+const mapStateToProps = (state, ownProps = {}) => ({
+  favoriteIds: beersSelectors.favoriteIds(state),
+})
+
+const useConnect = createUseConnect(mapStateToProps, mapDispatchToProps)
+
+/**
+ *  Main
+ */
 const Detail = props => {
+  const { favoriteIds = [], addToFavorites, requestFavorites } = useConnect()
+  const isFavorite = favoriteIds.find(id => id === props.id)
+
+  useEffect(() => {
+    requestFavorites()
+  }, [])
+
   return (
     <Flex width={[1]} css={{}} pt={465} mb={200}>
-      <DetailHeader {...props} />
+      <DetailHeader
+        {...props}
+        isFavorite={isFavorite}
+        addToFavorites={addToFavorites}
+      />
       <Flex pt={[1]} flexDirection="column">
         <Flex alignItems="center">
           <OrganicIcoIfNeeded isOrganic={props.isOrganic} mr={[3]} />
@@ -30,10 +66,15 @@ const Detail = props => {
   )
 }
 
+/**
+ * Server Actions
+ */
+
 Detail.getInitialProps = async ({ query = {} }) => {
   try {
     const { data } = await getBeerById(query.id)
-    return { ...data }
+    const beer = data
+    return { ...data, beer }
   } catch (error) {
     console.log('error', error)
     return { error }
@@ -56,6 +97,10 @@ Detail.defaultProps = {
 }
 
 export default asPage(Detail)
+
+/**
+ * Private components
+ */
 
 const OrganicIcoIfNeeded = ({ isOrganic, ...rest }) =>
   isOrganic ? <OrganicIco {...rest} /> : null
