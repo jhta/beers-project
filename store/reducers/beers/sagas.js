@@ -62,7 +62,6 @@ export function* addToFavoritesWatcherSaga() {
 //----------------------------------------------------------------
 
 export function* removeFromFavorites(action) {
-  console.log('action on saga', action)
   const beer = get(action, 'payload', {})
   try {
     yield put(actions.removeFavorite.request())
