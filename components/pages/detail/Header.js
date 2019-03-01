@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Heading, Flex, Image } from 'rebass'
+import { Box, Heading, Flex, Image, Text, Card } from 'rebass'
 import styled from 'styled-components'
 import { getRandomBgImage } from 'lib/getRandomBeerImage'
 
@@ -19,6 +19,7 @@ const DetailHeader = ({ nameDisplay, logo, ...favoritesProps }) => {
               {nameDisplay}
             </Heading>
           </Flex>
+          <BoxMessageIfNeeded {...favoritesProps} />
           <ButtonFavorites {...favoritesProps} />
         </Flex>
       </Container>
@@ -47,13 +48,21 @@ const StyledImage = styled(Image)`
   min-width: 220px;
 `
 
+const BoxMessageIfNeeded = ({ canAddToFavorites, isFavorite }) =>
+  !canAddToFavorites && !isFavorite ? (
+    <Card p={[3]} border={[1]} borderColor="white">
+      <Text>You already full the limit (10 favorites)</Text>
+    </Card>
+  ) : null
+
 const ButtonFavorites = ({
   isFavorite,
   addToFavorites,
   removeFromFavorites,
   beer,
+  canAddToFavorites,
 }) =>
-  !isFavorite ? (
+  !canAddToFavorites && !isFavorite ? null : !isFavorite ? (
     <SolidButton
       onClick={() => {
         addToFavorites(beer)

@@ -28,6 +28,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = (state, ownProps = {}) => ({
   favoriteIds: beersSelectors.favoriteIds(state),
+  canAddToFavorites: beersSelectors.canAddMoreFavorites(state),
 })
 
 const useConnect = createUseConnect(mapStateToProps, mapDispatchToProps)
@@ -39,6 +40,7 @@ const Detail = props => {
   const {
     favoriteIds = [],
     addToFavorites,
+    canAddToFavorites,
     requestFavorites,
     removeFromFavorites,
   } = useConnect()
@@ -55,6 +57,7 @@ const Detail = props => {
         isFavorite={isFavorite}
         addToFavorites={addToFavorites}
         removeFromFavorites={removeFromFavorites}
+        canAddToFavorites={canAddToFavorites}
       />
       <Flex pt={[1]} flexDirection="column">
         <Flex alignItems="center">
