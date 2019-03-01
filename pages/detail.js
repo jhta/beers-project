@@ -59,7 +59,7 @@ const Detail = props => {
         removeFromFavorites={removeFromFavorites}
         canAddToFavorites={canAddToFavorites}
       />
-      <Flex pt={[1]} flexDirection="column">
+      <Flex p={[3]} flexDirection="column">
         <Flex alignItems="center">
           <OrganicIcoIfNeeded isOrganic={props.isOrganic} mr={[3]} />
           <Box>

@@ -9,9 +9,9 @@ const BeerCard = React.memo(
   ({ nameDisplay, description, logo, timeAgo, id }) => (
     <Card border={1} borderColor={'white'}>
       <Flex>
-        <Card width={220} borderiRight={1} bg="#ccc">
+        <StyledCard width={220} borderiRight={1} bg="#ccc">
           <StyledImage width={220} height={200} src={logo} />
-        </Card>
+        </StyledCard>
         <Box p={[3]} pl={[4]} width={1}>
           <Box bg="dark" p={[3]} width={1}>
             <Heading bg="dark">{nameDisplay}</Heading>
@@ -48,4 +48,10 @@ export default BeerCard
 
 const StyledImage = styled(Image)`
   min-width: 220px;
+`
+
+const StyledCard = styled(Card)`
+  @media (max-width: 768px) {
+    display: none;
+  }
 `

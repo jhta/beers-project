@@ -12,9 +12,20 @@ const DetailHeader = ({ nameDisplay, logo, ...favoritesProps }) => {
   return (
     <DetailHeaderWrapper px={[3]} py={[4]} image={image}>
       <Container>
-        <Flex width={1} justifyContent="space-between" alignItems="flex-end">
-          <Flex flexDirection="column">
-            <StyledImage pb={[3]} width={220} height={200} src={logo} />
+        <Flex
+          width={1}
+          justifyContent={['center', 'space-between']}
+          alignItems={['center', 'flex-end']}
+          flexDirection={['column', 'row']}
+        >
+          <Flex flexDirection="column" alignItems={['center', 'flex-start']}>
+            <StyledImage
+              alignItems={['center', 'flex-start']}
+              pb={[3]}
+              width={220}
+              height={200}
+              src={logo}
+            />
             <Heading bg="dark" p={[3]} pb={[1]} alignSelf="flex-start">
               {nameDisplay}
             </Heading>
@@ -42,6 +53,10 @@ const DetailHeaderWrapper = styled(Box)`
 
 DetailHeaderWrapper.displayName = 'DetailHeaderWrapper'
 
+/**
+ * Private components
+ */
+
 export default React.memo(DetailHeader)
 
 const StyledImage = styled(Image)`
@@ -50,7 +65,7 @@ const StyledImage = styled(Image)`
 
 const BoxMessageIfNeeded = ({ canAddToFavorites, isFavorite }) =>
   !canAddToFavorites && !isFavorite ? (
-    <Card p={[3]} border={[1]} borderColor="white">
+    <Card p={[3]} mt={4} border={[1]} borderColor="white">
       <Text>You already full the limit (10 favorites)</Text>
     </Card>
   ) : null
